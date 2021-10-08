@@ -54,6 +54,13 @@ namespace Program02
             //6. Dados da Thread: Nome, cultura, prioridade, contexto, background, pool
 
             //7. Usando Thread Pool
+            for (int i = 0; i < 50; i++)
+            {
+                int estadoDoItem = i;
+                ThreadPool.QueueUserWorkItem(
+                    (estado) => ExecutarComParametro(estadoDoItem)
+                    );
+            }
             Console.ReadLine();
 
         }
