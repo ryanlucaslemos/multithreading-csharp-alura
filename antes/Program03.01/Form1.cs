@@ -30,12 +30,25 @@ namespace Program03._01
 
         private void VisualizaRelogio()
         {
-            Thread.Sleep(100);
-            TimeSpan tempo = relogio.Elapsed;
-            int minutos = tempo.Minutes;
-            int segundos = tempo.Seconds;
-            int milissegundos = tempo.Milliseconds;
-            txtRelogio.Text = $"{minutos:00}:{segundos:00}:{milissegundos:000}";
+            Thread threadSecundaria = new Thread(() =>
+            {
+                while (true)
+                {
+                    Thread.Sleep(100);
+                    TimeSpan tempo = relogio.Elapsed;
+                    int minutos = tempo.Minutes;
+                    int segundos = tempo.Seconds;
+                    int milissegundos = tempo.Milliseconds;
+                    this.Invoke((Action)delegate 
+                    { 
+                        txtRelogio.Text = $"{minutos:00}:{segundos:00}:{milissegundos:000}";
+                    
+                    });
+                    //this.Refresh();
+                }
+            });
+            threadSecundaria.Start();
+
         }
     }
 }
